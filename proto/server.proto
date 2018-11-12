@@ -1,0 +1,53 @@
+syntax = "proto3";
+
+import "google/api/annotations.proto";
+
+package server;
+
+message Company {
+    int64 id = 1;
+    string name = 2;
+}
+
+message Transaction {
+    string id = 1;
+    double amount = 2;
+}
+
+message User {
+    string username = 1;
+}
+
+message Order {
+    int64 id = 1;
+}
+
+message Calculation {
+    int64 id = 1;
+}
+
+message NewTransaction {
+    enum Env {
+        IL = 0;
+        RU = 1;
+        UK = 2;
+    }
+
+    Env env = 1;
+    Company company = 2;
+    Transaction transaction = 3;
+    User user = 4;
+    Order order = 5;
+    Calculation calculation = 6;
+}
+
+message Empty {}
+
+service Transactions {
+    rpc Add(NewTransaction) returns(Empty) {
+        option (google.api.http) = {
+            post: "/v1/transaction"
+            body: "*"
+        };
+    }
+}

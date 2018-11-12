@@ -1,0 +1,132 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "server.proto",
+    "version": "version not set"
+  },
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/v1/transaction": {
+      "post": {
+        "operationId": "Add",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/serverEmpty"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/serverNewTransaction"
+            }
+          }
+        ],
+        "tags": [
+          "Transactions"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "NewTransactionEnv": {
+      "type": "string",
+      "enum": [
+        "IL",
+        "RU",
+        "UK"
+      ],
+      "default": "IL"
+    },
+    "serverCalculation": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "int64"
+        }
+      }
+    },
+    "serverCompany": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "serverEmpty": {
+      "type": "object"
+    },
+    "serverNewTransaction": {
+      "type": "object",
+      "properties": {
+        "env": {
+          "$ref": "#/definitions/NewTransactionEnv"
+        },
+        "company": {
+          "$ref": "#/definitions/serverCompany"
+        },
+        "transaction": {
+          "$ref": "#/definitions/serverTransaction"
+        },
+        "user": {
+          "$ref": "#/definitions/serverUser"
+        },
+        "order": {
+          "$ref": "#/definitions/serverOrder"
+        },
+        "calculation": {
+          "$ref": "#/definitions/serverCalculation"
+        }
+      }
+    },
+    "serverOrder": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "int64"
+        }
+      }
+    },
+    "serverTransaction": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "amount": {
+          "type": "number",
+          "format": "double"
+        }
+      }
+    },
+    "serverUser": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
